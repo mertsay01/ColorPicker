@@ -1,0 +1,71 @@
+@use "../../abstracts/animations.scss";
+
+.colors{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style: none;
+    padding: 4rem;
+    max-width: 170rem;
+
+    &__color{
+        width: 30rem;
+        flex-grow: 1;
+        aspect-ratio: 1/1;
+        transition: 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0.2rem solid rgba(128, 128, 128, 0.2);
+        overflow: hidden;
+        position: relative;
+        animation-name: popupCard;
+        animation-duration: 0.6s;
+        animation-fill-mode: backwards;
+
+    }
+
+    @for $i from 1 through 100{
+        &__color:nth-of-type(#{$i}){
+            animation-delay: $i/10 + s;
+        }
+    }
+
+    &__color:hover{
+        cursor: pointer;
+        transform: translateY(-0.5rem);
+    }
+
+    &__color:hover &cirlce{
+        transform: scale(1.2);
+    }
+
+    &__color:hover &__color.colors.color--selected{
+        transform: none;
+    }
+
+    &__circle{
+        width: 50%;
+        height: 50%;
+        border-radius: 50%;
+        transition: 0.2s transform;
+    
+        &--selected{
+            transform: scale(3);
+        }
+    }
+    &__text{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-name: popup;
+        animation-duration: 0.6s;
+        display: none;
+    }
+
+    .colors__circle--selected + .colors__text{
+        display: block;
+    }
+
+}
